@@ -1,7 +1,7 @@
 # Cricket-Match-Booking
 ## **Smart Contract** on booking a cricket match. 
 ### Features:
-*Schedule Matches
-*Sell match tickets
-*Users can return tickets
-*Stores data on blockchain
+*Schedule Matches<br />
+*Sell match tickets<br />
+*Users can return tickets<br />
+*Stores data on blockchain<br />
