@@ -44,9 +44,10 @@ contract CricketMatchBooking {
         require(quantity <= _match.ticketsRemaining, "Not enough tickets");
         uint change = msg.value - _match.price*quantity;
         if(change != 0) {
-            (bool success, ) = msg.sender.call{value: change}("");
+            (bool success, ) = payable(msg.sender).call{value: change}("");
             require(success, "failed");
         }
+        
         _match.ticketsRemaining -= quantity;
         tickets[msg.sender][id] += quantity;
         emit BuyTicket(msg.sender, id, quantity);
@@ -55,12 +56,11 @@ contract CricketMatchBooking {
     function revokeTicket(uint id, uint quantity) external matchCheck(id) {
         Match storage _match = matches[id];
         require(tickets[msg.sender][id] >= quantity, "Not have enough tickets");
-        (bool success, ) = msg.sender.call{value: _match.price*quantity}("");
+        (bool success, ) = payable(msg.sender).call{value: _match.price*quantity}("");
         require(success, "failed");
         tickets[msg.sender][id] -= quantity;
         _match.ticketsRemaining += quantity;
         emit RevokeTicket(msg.sender, id, quantity);
-
     }
 
 }
